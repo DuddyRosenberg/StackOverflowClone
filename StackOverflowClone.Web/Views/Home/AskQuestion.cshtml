@@ -1,0 +1,19 @@
+﻿@model int
+<div class="col-md-6 offset-3">
+    <form method="post" action="/home/addquestion">
+        <div id="form-input">
+            <input type="hidden" name="UserID" value="@Model" />
+            <input class="form-control" name="Title" placeholder="Title" />
+            <br />
+            <textarea class="form-control" placeholder="Type your question here..." rows="10" name="QuestionText"></textarea>
+            <br />
+            <input name="tags[0]" placeholder="Tag #1" />
+        </div>
+        <button type="button" class="btn btn-primary" id="add-tags">Add Tag</button>
+        <button class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+@section scripts{
+    <script src="~/js/AddQuestion.js"></script>
+}

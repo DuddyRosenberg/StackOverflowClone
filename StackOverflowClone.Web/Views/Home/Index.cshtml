@@ -1,0 +1,17 @@
+﻿@model List<Question>
+
+<div class="list-group">
+    @foreach (var question in Model)
+    {
+        <div class="list-group-item">
+            <a href="/home/questionpage?id=@question.ID"><h3>@question.Title</h3></a>
+            <h4>@question.QuestionText</h4>
+            Likes:
+            @question.LikedQuestions.Count
+            @foreach (var qt in question.QuestionsTags)
+            {
+                <span class="badge badge-primary">@qt.Tag.Text</span>
+            }
+        </div>
+    }
+</div>

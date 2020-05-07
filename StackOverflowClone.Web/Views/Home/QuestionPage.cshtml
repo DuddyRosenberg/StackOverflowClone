@@ -1,0 +1,44 @@
+﻿@model QuestionPageViewModel
+
+<div class="card">
+    @{ var question = Model.Question;}
+    <h2>@question.Title</h2>
+    <h3>@question.QuestionText</h3>
+    <h5>
+        Likes:@question.LikedQuestions.Count
+        @foreach (var qt in question.QuestionsTags)
+        {
+            <span class="badge badge-primary">@qt.Tag.Text</span>
+        }
+    </h5>
+    @if (User.Identity.IsAuthenticated && !question.LikedQuestions.Any(lq => lq.UserID == Model.UserID))
+    {
+        <button data-id="@question.ID" class="btn btn-primary col-md-1" id="like-btn">Like</button>
+    }
+
+    @foreach (var answer in Model.Answers)
+    {
+        <div class="card">
+            <h6>@answer.User.Email</h6>
+            <h4>@answer.AnswerText</h4>
+            <h6>Likes:@answer.LikedAnswers.Count</h6>
+            @if (User.Identity.IsAuthenticated && !answer.LikedAnswers.Any(la => la.UserID == Model.UserID))
+            {
+                <button data-id="@answer.ID" class="btn btn-primary col-md-1" id="like-answer-btn">Like</button>
+            }
+        </div>
+    }
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div>
+            <input id="answer-text" placeholder="Type Your Answer..." />
+            <button id="submit-answer" data-userid="@Model.UserID" data-questionid="@question.ID">Submit Answer</button>
+        </div>
+    }
+
+</div>
+
+@section scripts{
+    <script src="~/js/QuestionPage.js"></script>
+}
